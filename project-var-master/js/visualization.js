@@ -330,3 +330,227 @@ var selectedTeam = new Set();
       });
     
   })
+
+
+
+//Creating the SVG for Graph 4
+var svg4 = d3
+    .select("#bar_chart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom + 100)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//Creating the SVG for Graph 5
+var svg5 = d3
+    .select("#bar_chart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom + 100)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+//Getting Data from VAR Incidents from the 2019-2020 Season
+d3.csv("data/VAR_Incidents_19_20.csv").then((data) => {
+
+  {
+
+    //Create First Chart For Home Decisions
+    createDecisionBarChart('H');
+
+    //Create Second Chart For Away Decisions
+    createDecisionBarChart('A');
+
+  }
+
+//A function which takes in the the Ground (Home or Away) and generates a BarChart Accordingly
+function createDecisionBarChart(ground) {
+
+  //Visualization #1: Bar Chart comparing Home vs Away VAR Decisions
+
+  //1. Set x,y Scales for the bar chart
+  let x = d3.scaleBand().range([0, width]).padding(0.13),
+      y = d3.scaleLinear().range([height, 0]);
+
+
+  //Create Domain for X and Y axis
+  x.domain(data.map(function(d) { return d.DecisionType; }));
+  y.domain([0, 50]);
+
+
+  //Find All Decisions By Ground 'H' or 'A' for Home or Away
+  //This list will be used to find the count of each decision type in this season
+  var decisionsList = data.filter(function(d) { return d.VARused === 'FOR' }).filter(function(d) { return d.Site === ground }).map(function(d) { return d.DecisionType;})
+
+  console.log('a', decisionsList)
+  //Initialize each decision count as 0
+  var pkAwarded = 0;
+  var pkRetaken = 0;
+  var pkCancelled = 0;
+  var goalRuledOut = 0;
+  var goalAllowed = 0;
+  var redCard = 0;
+  var yellowCard = 0;
+  var redCardCancelled = 0;
+
+
+  //Parse the list and count each occurence of each decision type
+  decisionsList.forEach(function (item) {
+    if(item === "PK Awarded") {
+      pkAwarded++;
+    }
+    else if(item === "PK Retaken") {
+      pkRetaken++;
+
+    }
+    else if(item === "PK Cancelled") {
+      pkCancelled++;
+
+    }
+    else if(item === "Goal ruled out") {
+      goalRuledOut++;
+
+    }
+    else if(item === "Goal allowed") {
+      goalAllowed++;
+
+    }
+    else if(item === "Red Card") {
+      redCard++;
+
+    }
+
+    else if(item === "Red Card cancelled") {
+      redCardCancelled++;
+
+    }
+
+    else{
+
+      yellowCard++;
+    }
+  });
+
+  //Create a new List which displays the specie count of each decision
+  var decisionCount = [pkAwarded, pkRetaken, pkCancelled, goalRuledOut, goalAllowed, redCard, yellowCard, redCardCancelled]
+
+  //The data which will be plotted can be then defined below as:
+  var decisionsData = [
+    {"Decision" : "PK Awarded",
+      "DecisionCount" : decisionCount[0]},
+    {"Decision" : "PK Retaken",
+      "DecisionCount" : decisionCount[1]},
+    {"Decision" : "PK Cancelled",
+      "DecisionCount" : decisionCount[2]},
+    {"Decision" : "Goal ruled out",
+      "DecisionCount" : decisionCount[3]},
+    {"Decision" : "Goal allowed",
+      "DecisionCount" : decisionCount[4]},
+    {"Decision" : "Red Card",
+      "DecisionCount" : decisionCount[5]},
+    {"Decision" : "Yellow Card",
+      "DecisionCount" : decisionCount[6]},
+    {"Decision" : "Red Card cancelled",
+      "DecisionCount" : decisionCount[7]}
+  ]
+
+  console.log(decisionsData)
+
+  if(ground == 'H') {
+
+
+  //Create the Bar Chart with decisionsData defined
+  var decisionsBarChart1 = svg4.selectAll(".bar")
+      .data(decisionsData)
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.Decision) })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(d.DecisionCount); })
+      .attr("height", function(d) { return height - y(d.DecisionCount)})
+      //Code from https://stackoverflow.com/questions/37585131/how-to-set-color-gradient-in-barchart-using-d3-js
+      .attr("fill", 'green')
+
+  //Append the x-axis to the SVG
+  svg4.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
+
+  //Append the y-axis to the SVG
+  svg4.append("g")
+      .call(d3.axisLeft(y));
+
+
+  svg4.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "end")
+      .attr("x", width - 100)
+      .attr("y", height + 100)
+      .text("Decisions made in favour of Home Teams");
+
+  //adding the y label
+  svg4.append("text")
+      .attr("class", "y label")
+      .attr("text-anchor", "end")
+      .attr("y", 10)
+      .attr("x", -100)
+      .attr("dy", "-2.8em")
+      .attr("transform", "rotate(-90)")
+      .text("Count of Each Decision Type");
+
+  }
+
+  else {
+
+    //Create the Bar Chart with decisionsData defined
+    var decisionsBarChart1 = svg5.selectAll(".bar")
+        .data(decisionsData)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return x(d.Decision) })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(d.DecisionCount); })
+        .attr("height", function(d) { return height - y(d.DecisionCount)})
+        //Code from https://stackoverflow.com/questions/37585131/how-to-set-color-gradient-in-barchart-using-d3-js
+        .attr("fill", 'red')
+
+    //Append the x-axis to the SVG
+    svg5.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("transform", "translate(-10,0)rotate(-45)")
+        .style("text-anchor", "end");
+
+    //Append the y-axis to the SVG
+    svg5.append("g")
+        .call(d3.axisLeft(y));
+
+
+    svg5.append("text")
+        .attr("class", "x label")
+        .attr("text-anchor", "end")
+        .attr("x", width - 100)
+        .attr("y", height + 100)
+        .text("Decisions made in favour of Away Teams");
+
+    //adding the y label
+    svg5.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("y", 10)
+        .attr("x", -100)
+        .attr("dy", "-2.8em")
+        .attr("transform", "rotate(-90)")
+        .text("Count of Each Decision Type");
+
+  }
+}
+
+});
+
