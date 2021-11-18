@@ -9,6 +9,12 @@ h1, h2, h3 {
 	line-height: 1.2
 }
 
+.selected {
+	opacity: 1 !important;
+	stroke: black;
+	stroke-width: 2px;
+  }
+
 /* Your text should be in a nice narrow column */
 .content-column {
 	max-width: 650px;
@@ -28,6 +34,16 @@ h1, h2, h3 {
 .vis-svg {
   background-color: #f4f1f0;
 }
+  
+/* Recreate the D3 brush style... */
+tr.mouseover {
+	background-color: #d6d6d6;
+  }
+  
+  /* ...but add a darker selected and brushed color. */
+  tr.mouseover.selected{
+	background-color: #e08fa3;
+  }
 
 /* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */
 #forkongithub a{
