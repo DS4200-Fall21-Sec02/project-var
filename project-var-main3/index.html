@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<!-- Metadata -->
+<head>
+  <meta charset='utf-8'>
+
+  <!-- Title -->
+  <title>Project Team #?: Visualizing the Effect of VAR on the Premier League, DS4200 F21</title>
+
+  <!-- CSS Styling -->
+  <link rel='stylesheet' href='style.css'>
+
+  <!-- Favicons -->
+  <link rel='apple-touch-icon' sizes='180x180' href='favicons/apple-touch-icon.png'>
+  <link rel='icon' type='image/png' sizes='32x32' href='favicons/favicon-32x32.png'>
+  <link rel='icon' type='image/png' sizes='16x16' href='favicons/favicon-16x16.png'>
+  <link rel='manifest' href='favicons/site.webmanifest'>
+  <link rel='shortcut icon' href='favicons/favicon.ico'>
+  <meta name='msapplication-TileColor' content='#da532c'>
+  <meta name='msapplication-config' content='favicons/browserconfig.xml'>
+  <meta name='theme-color' content='#ffffff'>
+</head>
+
+<!-- Main page content -->
+<body>
+
+  <!-- Update this with your GitHub repo URL -->
+  <span id='forkongithub'><a href='https://github.com/DS4200-Fall21-Sec02/project-var'>Fork me on GitHub</a></span>
+
+  <!-- Writeup -->
+  <div class='content-column'>
+   <h2>Project Team #:                    DS4200 Fall2021</h2>
+   <h2>Visualizing the Effect of VAR on the Premier League </h2>
+
+    <p><strong>Leo Pruthi</strong>, <strong>Ryan Wallace</strong>, <strong>Daniel Hantoro</strong>,
+      <strong>Adit Vaswani</strong>, <strong>Kevin Schmitt</strong></p>
+
+    <p>Course Project as part of
+	<a href='https://northeastern.instructure.com/courses/18721'>DS4200 F21: Information Visualization</a>,
+	taught by <a href='https://www.khoury.northeastern.edu/home/amosca/'>Prof. Ab Mosca</a>,
+	<a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>,
+	<a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.</p>
+
+
+    <h2>Abstract</h2>
+
+    <p>Within soccer internationally, the role of the Video Assistant Referee (VAR) is
+    becoming increasingly ubiquitous. However, there has been high levels of
+    controversy related to VAR and the biases it can give teams when utilized with the
+    subjective discretion of the referee, especially within the English Premier League.
+    While intended to help implement accurate decisions on calls of offsides or goal
+    reversals, the opposite impact may be true. This makes it crucial to visualize the
+    impact that VAR has had, and in this project, we do so for the Premier League,
+    utilizing data from the past three seasons (2019-present) when VAR has been in play.
+    We aim to, through visualizing the impact of VAR on team success and statistics,
+    achieve the goal of determining if utilizing VAR in the Premier League, and in the
+    international soccer community overall, is more counterproductive than useful, or if
+    it should continue to be the new standard of refereeing.</p>
+
+
+    <h2>Visualization</h2>
+
+    <p>Include the interactive visualization as part of this page. Static example follows.</p>
+
+
+  </div>
+
+  <!-- Visualization goes here -->
+    <div class='vis-holder' id='scatter_plot'>
+
+    <!-- Change viewbox to whatever you want, e.g., '0 0 1000 6000' This determines your aspect ratio and coordinate system -->
+    <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
+    <!-- <svg id='vis-svg-1'
+      preserveAspectRatio='xMidYMid meet' class='vis-svg' viewBox='0 0 1000 1000' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+
+
+      <text x='30%' y='35%' text-anchor='middle'>A</text>
+      <text x='70%' y='35%' text-anchor='middle'>B</text>
+      <rect x='20%' y='40%' width='20%' height='20%' fill='yellow'></rect>
+      <circle cx='70%' cy='50%' r='10%' fill='blue'></circle>
+
+     Don't delete the closing tag!
+    </svg>-->
+    </div>
+    <div class='content-column2'>
+
+      <p>This is our scatterplot This is our scatterplot This is our scatterplot This is our scatterplot This is our scatterplot</p>
+    </div>
+
+    <div class='vis-holder' id='bar_chart'></div>
+
+  <!-- Further writeup -->
+  <div class = 'content-column'>
+
+    <h2>Demo Video</h2>
+
+    <p>Embed an MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</p>
+
+    <video controls width='100%'>
+      <source src='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4' type='video/mp4'>
+      <p>Your browser doesn't support HTML5 video. Here is
+       a <a href='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4'>link to the video</a> instead.</p>
+    </video>
+
+    <h2>Visualization explanation</h2>
+
+    <p>Replace with a brief explanation (can be copied from the paper) and linked presentation slides.</p>
+
+    <h2>Acknowledgments</h2>
+
+    <p>
+      List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.
+    </p>
+
+    <ul>
+      <li><a href='https://d3js.org/'>
+        D3: Data-Driven Documents</a>
+        by Mike Bostock is used for manipulating the DOM to create visualizations.
+      </li>
+      <li><a href='https://codepo8.github.io/css-fork-on-github-ribbon/#'>
+        Pure CSS responsive 'Fork me on GitHub' ribbon</a>
+        by Chris Heilmann is used to create the banner that links back to the source code repository.
+      </li>
+      <li><a href='https://github.com/NEU-DS-4200-F20-Staff/Project'>
+        Project</a>
+        by Cody Dunne is used to create this assignment.
+      </li>
+    </ul>
+  </div>
+
+  <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
+  <script src='lib/d3.v6.1.1/d3.min.js'></script>
+  <script src='js/visualization.js'></script>
+</body>
+</html>
