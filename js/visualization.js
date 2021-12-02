@@ -411,7 +411,7 @@ d3.csv("data/VAR_Incidents_19_20.csv").then((data) => {
     //Create Second Chart For Away Decisions
     createDecisionBarChart('A');
 
-  }, 10)
+  }, 1)
 
 //A function which takes in the the Ground (Home or Away) and generates a BarChart Accordingly
 function createDecisionBarChart(ground) {
