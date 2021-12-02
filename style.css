@@ -3,6 +3,7 @@ body {
 	padding: 0 10px;
 	font: 18px/1.5 -apple-system, BlinkMacSystemFont, "avenir next",avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans",roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
 	sans-serif;
+	background-color: #d7ccd8;
 }
 
 h1, h2, h3 {
@@ -43,11 +44,26 @@ h1, h2, h3 {
 	font-size: .7rem;
 }
 
+.background {
+	opacity: .05;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	position: fixed;
+}
 /* But your visualization should be full-width and full-height */
 .vis-holder {
   width: 100%;
   height: 100%;
+  background-color: #d7ccd8;
 }
+.vis-holder2 {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+  }
 
 .vis-svg {
   background-color: darkblue;
