@@ -1,5 +1,6 @@
+var activeTeams = new Set();
+
 // Set the margins for the visualization
-// pm-08
 var margin = { top: 10, right: 30, bottom: 50, left: 60 },
   width = 460 - margin.left - margin.right,
   height = 450 - margin.top - margin.bottom;
@@ -18,6 +19,7 @@ var margin = { top: 10, right: 30, bottom: 50, left: 60 },
     return '#' + ('000000' + h.toString(16)).slice(-6);
   } 
 
+
 var color = d3
   .scaleLinear()
   .domain([-11, 11])
@@ -27,29 +29,39 @@ var color = d3
 
 // For each visualization, append an SVG to the HTML div
 //   with id = "dataviz_brushScatter"
+
+// TO ADD: 
+// TITLE
+// LEGEND / CAPTION
+// TEST DIFFERENT COLORS
+// AXIS LABELS SLIGHTLY BIGGER
+// CHANGE LAYOUT OF PLOTS
+// HOVER ON DOTS
+
+var svg2 = d3
+  .select("#scatter_plot")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right + 100)
+  .attr("height", height + margin.top + margin.bottom + 100)
+  .append("g")
+  .attr("transform", "translate(" + margin.left * 2  + "," + margin.top + ")");
+
 var svg1 = d3
   .select("#scatter_plot")
   .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  var svg2 = d3
-  .select("#bar_chart")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
+  .attr("width", width + margin.left + margin.right + 100)
   .attr("height", height + margin.top + margin.bottom + 100)
   .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform", "translate(" + margin.left * 2 + "," + margin.top + ")");
+  
 
   var svg3 = d3
-  .select("#bar_chart")
+  .select("#scatter_plot")
   .append("svg")
-  .attr("width", width + margin.left + margin.right)
+  .attr("width", width + margin.left + margin.right + 100)
   .attr("height", height + margin.top + margin.bottom + 100)
   .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform", "translate(" + margin.left * 2 + "," + margin.top + ")");
 
   d3.csv("data/VAR_Team_Stats_Updated.csv").then((data) => {
 
@@ -74,7 +86,8 @@ var svg1 = d3
         g
           .append("text")
           .attr("x", width / 2)
-          .attr("y", height / 2 + 10)
+          .attr("y", height / 2 + 25)
+          .style("font-size", "18px")
           .attr("fill", "currentColor")
           .attr("text-anchor", "middle")
           .text(yKey1)
@@ -95,13 +108,18 @@ var svg1 = d3
       .call((g) =>
         g
           .append("text")
-          .attr("x", -height / 2 - 40)
-          .attr("y", -width / 2 - 10)
+          .attr("x", -height / 2 - 67)
+          .attr("y", -width / 2 - 30)
+          .style("font-size", "18px")
           .attr('transform', 'rotate(-90)')
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
           .text(xKey1)
       );
+
+    var div = d3.select("body").append("div")
+     .attr("class", "tooltip")
+     .style("opacity", 0);
 
     // Add points to the chart 
     var myCircle1 = svg1
@@ -122,11 +140,33 @@ var svg1 = d3
         return color(get_diff(d));
       })
 
+      .on('mouseover', function (d, i) {
+          d3.select(this).transition()
+                .duration('100')
+                .attr("r", 7);
+          div.transition()
+               .duration(100)
+               .style("opacity", 1);
+          div.html("Team: " + d.Team)
+               .style("left", (d3.event.pageX + 10) + "px")
+               .style("top", (d3.event.pageY - 15) + "px");
+     })
+     .on('mouseout', function (d, i) {
+          d3.select(this).transition()
+               .duration('200')
+               .attr("r", 5);
+          div.transition()
+               .duration('200')
+               .style("opacity", 0);
+     });
+
+
+
     svg1.append("text")
-          .attr("x", (width / 2))             
-          .attr("y", margin.top / 2)
+          .attr("x", width - 100)             
+          .attr("y", height + 100)
           .attr("text-anchor", "middle")  
-          .style("font-size", "18px") 
+          .style("font-size", "30px") 
           .style("text-decoration", "underline")  
           .text("Net Subjective Score & Goal Score on Standings");
 
@@ -243,27 +283,31 @@ var svg1 = d3
     
           var selectedTeam = new Set();
           svg2.selectAll('rect')
-          .on('mousemove', function () {
+          .on('mouseover', function () {
             d3.select(this).attr("stroke", "black")
-                            .attr("stroke-width", 2);
+                            .attr("stroke-width", 3);
             selectedTeam.add(this.__data__.Team)
             svg3.selectAll("rect").classed("selected", function(d){
             return selectedTeam.has(d.Team)})
           })
           .on('mouseout', function () {
+            svg3.selectAll("rect").classed("unselected", function(d){
+            return selectedTeam.has(d.Team)})
             selectedTeam.clear();
             d3.select(this).attr("stroke", "white").attr("stroke-width", 0);
           });
-    
+
           svg3.selectAll('rect')
-          .on('mousemove', function () {
+          .on('mouseover', function () {
             d3.select(this).attr("stroke", "black")
-                            .attr("stroke-width", 2);
+                            .attr("stroke-width", 3);
             selectedTeam.add(this.__data__.Team)
             svg2.selectAll("rect").classed("selected", function(d){
             return selectedTeam.has(d.Team)})
           })
           .on('mouseout', function () {
+            svg2.selectAll("rect").classed("unselected", function(d){
+            return selectedTeam.has(d.Team)})
             selectedTeam.clear();
             d3.select(this).attr("stroke", "white").attr("stroke-width", 0);
           });
@@ -290,6 +334,7 @@ function updateChart1(brushEvent) {
   // A function that return TRUE or FALSE according if a dot is in the selection or not
   myBars1.classed("selected", function(d){ return selectedTeams.has(d.Team)})
   myBars2.classed("selected", function(d){ return selectedTeams.has(d.Team)})
+  activeTeams = selectedTeams;
 }
 
 
@@ -356,15 +401,17 @@ var svg5 = d3
 //Getting Data from VAR Incidents from the 2019-2020 Season
 d3.csv("data/VAR_Incidents_19_20.csv").then((data) => {
 
-  {
-
+  setInterval(function() {
+    currentData = data.filter(function(d){ return [...activeTeams].indexOf(d.Team) >= 0 })
+    svg4.selectAll('*').remove()
+    svg5.selectAll('*').remove()
     //Create First Chart For Home Decisions
     createDecisionBarChart('H');
 
     //Create Second Chart For Away Decisions
     createDecisionBarChart('A');
 
-  }
+  }, 1000)
 
 //A function which takes in the the Ground (Home or Away) and generates a BarChart Accordingly
 function createDecisionBarChart(ground) {
@@ -383,7 +430,7 @@ function createDecisionBarChart(ground) {
 
   //Find All Decisions By Ground 'H' or 'A' for Home or Away
   //This list will be used to find the count of each decision type in this season
-  var decisionsList = data.filter(function(d) { return d.VARused === 'FOR' }).filter(function(d) { return d.Site === ground }).map(function(d) { return d.DecisionType;})
+  var decisionsList = currentData.filter(function(d) { return d.VARused === 'FOR' }).filter(function(d) { return d.Site === ground }).map(function(d) { return d.DecisionType;})
 
   console.log('a', decisionsList)
   //Initialize each decision count as 0
