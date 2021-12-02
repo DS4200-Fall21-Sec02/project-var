@@ -12,8 +12,13 @@ h1, h2, h3 {
 .selected {
 	opacity: 1 !important;
 	stroke: black;
-	stroke-width: 2px;
+	stroke-width: 3px;
   }
+
+.unselected {
+	stroke: white;
+	stroke-width: 0px;
+}
 
 /* Your text should be in a nice narrow column */
 .content-column {
@@ -24,6 +29,18 @@ h1, h2, h3 {
 .content-column2 {
 	max-width: 450px;
 	margin-left: 40px;
+}
+
+.tooltip {
+	position: absolute;
+	text-align: center;
+	padding: .2rem;
+	background: #313639;
+	color: #f9f9f9;
+	border: 0px;
+	border-radius: 8px;
+	pointer-events: none;
+	font-size: .7rem;
 }
 
 /* But your visualization should be full-width and full-height */
