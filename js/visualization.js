@@ -2,9 +2,10 @@ var activeTeams = new Set();
 
 // Set the margins for the visualization
 var margin = { top: 10, right: 30, bottom: 50, left: 60 },
-width = 460 - margin.left - margin.right,
-height = 450 - margin.top - margin.bottom;
+  width = 460 - margin.left - margin.right,
+  height = 450 - margin.top - margin.bottom;
 
+// Color scale for points on scatter plot
 function perc2color(perc) {
   var r, g, b = 0;
   if(perc < 50) {
@@ -19,51 +20,41 @@ function perc2color(perc) {
   return '#' + ('000000' + h.toString(16)).slice(-6);
 }
 
-
+// Sets standing change (color of dots) to be a linear scale from red to green
 var color = d3
-.scaleLinear()
-.domain([-11, 11])
-.range([perc2color(0), perc2color(100)]);
+  .scaleLinear()
+  .domain([-11, 11])
+  .range([perc2color(0), perc2color(100)]);
 
-
-
-// For each visualization, append an SVG to the HTML div
-//   with id = "dataviz_brushScatter"
-
-// TO ADD:
-// TITLE
-// LEGEND / CAPTION
-// TEST DIFFERENT COLORS
-// AXIS LABELS SLIGHTLY BIGGER
-// CHANGE LAYOUT OF PLOTS
-// HOVER ON DOTS
-
+// Initiallizes our barchart SVG to left of scatter plot
 var svg2 = d3
-.select("#scatter_plot")
-.append("svg")
-.attr("width", width + margin.left + margin.right + 100)
-.attr("height", height + margin.top + margin.bottom + 100)
-.append("g")
-.attr("transform", "translate(" + margin.left * 2  + "," + margin.top + ")");
+  .select("#scatter_plot")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right + 100)
+  .attr("height", height + margin.top + margin.bottom + 100)
+  .append("g")
+  .attr("transform", "translate(" + margin.left * 2  + "," + margin.top + ")");
 
+// Initiallizes our scatter plot SVG to center of top row
 var svg1 = d3
-.select("#scatter_plot")
-.append("svg")
-.attr("width", width + margin.left + margin.right + 100)
-.attr("height", height + margin.top + margin.bottom + 100)
-.append("g")
-.attr("transform", "translate(" + margin.left * 2 + "," + margin.top + ")");
+  .select("#scatter_plot")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right + 100)
+  .attr("height", height + margin.top + margin.bottom + 100)
+  .append("g")
+  .attr("transform", "translate(" + margin.left * 2 + "," + margin.top + ")");
 
-
+// Initiallizes our barchart SVG to right of scatter plot
 var svg3 = d3
-.select("#scatter_plot")
-.append("svg")
-.attr("width", width + margin.left + margin.right + 100)
-.attr("height", height + margin.top + margin.bottom + 100)
-.append("g")
-.attr("transform", "translate(" + margin.left * 2 + "," + margin.top + ")");
+  .select("#scatter_plot")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right + 100)
+  .attr("height", height + margin.top + margin.bottom + 100)
+  .append("g")
+  .attr("transform", "translate(" + margin.left * 2 + "," + margin.top + ")");
 
-d3.csv("data/VAR_Team_Stats_Updated.csv").then((data) => {
+  // use data from team stats
+  d3.csv("data/VAR_Team_Stats_Updated.csv").then((data) => {
 
   //Code for Scatterplot 1
   {
@@ -72,117 +63,114 @@ d3.csv("data/VAR_Team_Stats_Updated.csv").then((data) => {
 
     // Create scale for X axis
     var x1 = d3
-    .scaleLinear()
-    .domain([-8, 8])
-    //d3.extent(data.map((val) => val[xKey1])))
-    .range([0, width]);
+      .scaleLinear()
+      .domain([-8, 8])
+      .range([0, width]);
 
     // Add X axis
     svg1
-    .append("g")
-    .attr("transform", "translate(0," + (height / 2 + margin.top / 2) + ")")
-    .call(d3.axisBottom(x1))
-    .call((g) =>
-    g
-    .append("text")
-    .attr("x", width / 2)
-    .attr("y", height / 2 + 25)
-    .style("font-size", "18px")
-    .attr("fill", "currentColor")
-    .attr("text-anchor", "middle")
-    .text(yKey1)
-  );
+      .append("g")
+      .attr("transform", "translate(0," + (height / 2 + margin.top / 2) + ")")
+      .call(d3.axisBottom(x1))
+      .call((g) =>
+        g
+          .append("text")
+          .attr("x", width / 2)
+          .attr("y", height / 2 + 25)
+          .style("font-size", "18px")
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "middle")
+          .text(yKey1)
+      );
 
-  // Create scale for Y axis
-  var y1 = d3
-  .scaleLinear()
-  .domain([-9, 9])
-  //d3.extent(data.map((val) => val[yKey1])))
-  .range([height, margin.top]);
+    // Create scale for Y axis
+    var y1 = d3
+      .scaleLinear()
+      .domain([-9, 9])
+      .range([height, margin.top]);
 
-  // Add Y axis
-  svg1
-  .append("g")
-  .attr("transform", "translate(" + width / 2 + ", 0)")
-  .call(d3.axisLeft(y1))
-  .call((g) =>
-  g
-  .append("text")
-  .attr("x", -height / 2 - 67)
-  .attr("y", -width / 2 - 30)
-  .style("font-size", "18px")
-  .attr('transform', 'rotate(-90)')
-  .attr("fill", "currentColor")
-  .attr("text-anchor", "start")
-  .text(xKey1)
-);
+    // Add Y axis
+    svg1
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + ", 0)")
+      .call(d3.axisLeft(y1))
+      .call((g) =>
+        g
+          .append("text")
+          .attr("x", -height / 2 - 67)
+          .attr("y", -width / 2 - 30)
+          .style("font-size", "18px")
+          .attr('transform', 'rotate(-90)')
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "start")
+          .text(xKey1)
+      );
 
-var div = d3.select("body").append("div")
-.attr("class", "tooltip")
-.style("opacity", 0);
+    // Adds tooltip to scatter plot
+    let tooltip = d3.select("#scatter_plot")
+                  .append("div") // add a div
+                  .style("opacity", 0) // make the div transparant
+                  .attr("class", "tooltip"); // class the div as tooltip
+                                             // this is important so you can set styling
+                                             // to make the div "flot" on top of the chart
 
-// Add points to the chart
-var myCircle1 = svg1
-.append("g")
-.selectAll("circle")
-.data(data.filter(function(d){return (d.NineteenFin != -1) && (d.TwentyFin != -1)}))
-.enter()
-.append("circle")
-.attr("id", (d) => d.team)
-.attr("cx", function (d) {
-  return x1(d[xKey1]);
-})
-.attr("cy", function (d) {
-  return y1(d[yKey1]);
-})
-.attr("r", 8)
-.style("fill", function (d) {
-  return color(get_diff(d));
-})
+    // Adds text on mouseover
+    const mouseover = function(event, d) {
+      tooltip.html("Team: " + d.Team + "<br> 2019 Finish: " + d.NineteenFin + "<br> 2020 Finish: " + d.TwentyFin) // set html of tooltip div
+             .style("opacity", 1); // make tooltip visible
+    }
 
-.on('mouseover', function (d, i) {
-  d3.select(this).transition()
-  .duration('100')
-  .attr("r", 7);
-  div.transition()
-  .duration(100)
-  .style("opacity", 1);
-  div.html("Team: " + d.Team)
-  .style("left", (d3.event.pageX + 10) + "px")
-  .style("top", (d3.event.pageY - 15) + "px");
-})
-.on('mouseout', function (d, i) {
-  d3.select(this).transition()
-  .duration('200')
-  .attr("r", 5);
-  div.transition()
-  .duration('200')
-  .style("opacity", 0);
-});
+    const mousemove = function(event, d) {
+      // set top left of tooltip position
+      tooltip.style("left", (event.x)+"px")
+              .style("top", (event.y + 250) +"px"); // add an offset so it appears above the mouse
+    }
+
+    // blank tooltip when mouse not on point
+    const mouseleave = function(event, d) {
+      tooltip.style("opacity", 0); // make tooltip transparant again
+    }
+
+    // define brush
+    var brush1 = d3.brush()
+      .extent( [ [0,0], [width,height] ] )
+      .on("start brush", updateChart1)
+
+    // add brush to svg
+    svg1.call(brush1);
 
 
 
-svg1.append("text")
-.attr("x", width - 100)
-.attr("y", height + 100)
-.attr("text-anchor", "middle")
-.style("font-size", "30px")
-.style("text-decoration", "underline")
-.text("Net Subjective Score & Goal Score on Standings");
+    // Add points to the chart
+    var myCircle1 = svg1
+      .append("g")
+      .selectAll("circle")
+      .data(data.filter(function(d){return (d.NineteenFin != -1) && (d.TwentyFin != -1)}))
+      .enter()
+      .append("circle")
+      .attr("id", (d) => d.team)
+      .attr("cx", function (d) {
+        return x1(d[xKey1]);
+      })
+      .attr("cy", function (d) {
+        return y1(d[yKey1]);
+      })
+      .attr("r", 8)
+      .style("fill", function (d) {
+        return color(get_diff(d));
+      })
+      .attr("pointer-events", "all")
+      .on("mouseover", mouseover) // add event listeners
+      .on("mousemove", mousemove)
+      .on("mouseleave", mouseleave);
 
-// define brush
-var brush1 = d3.brush()
-.extent( [ [0,0], [width,height] ] )
-.on("start brush", updateChart1)
 
-// add brush to svg
-svg1.call(brush1)
-}
+    }
 
-
-function get_diff(team) {
-  return team["NineteenFin"] - team["TwentyFin"];
-}
+    // standings change between two seasons for color
+    function get_diff(team) {
+      return team["NineteenFin"] - team["TwentyFin"];
+    }
 
 
 const x2 = d3.scaleBand()

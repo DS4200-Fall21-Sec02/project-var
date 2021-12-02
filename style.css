@@ -33,15 +33,13 @@ h1, h2, h3 {
 }
 
 .tooltip {
-	position: absolute;
-	text-align: center;
-	padding: .2rem;
-	background: #313639;
-	color: #f9f9f9;
-	border: 0px;
-	border-radius: 8px;
-	pointer-events: none;
-	font-size: .7rem;
+  position: absolute;
+  text-align: left;
+  padding: 10px;
+  font: 18px sans-serif;
+  background: white;
+  border: 1px;
+  border-radius: 8px;
 }
 
 .background {
@@ -68,12 +66,12 @@ h1, h2, h3 {
 .vis-svg {
   background-color: darkblue;
 }
-  
+
 /* Recreate the D3 brush style... */
 tr.mouseover {
 	background-color: #d6d6d6;
   }
-  
+
   /* ...but add a darker selected and brushed color. */
   tr.mouseover.selected{
 	background-color: #e08fa3;
