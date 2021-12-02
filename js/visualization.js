@@ -123,7 +123,7 @@ var svg3 = d3
     const mousemove = function(event, d) {
       // set top left of tooltip position
       tooltip.style("left", (event.x)+"px")
-              .style("top", (event.y + 250) +"px"); // add an offset so it appears above the mouse
+              .style("top", (event.y + 10) +"px"); // add an offset so it appears above the mouse
     }
 
     // blank tooltip when mouse not on point
