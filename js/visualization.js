@@ -528,7 +528,7 @@ svg2.selectAll('rect')
                     svg4.append("text")
                     .attr("class", "x label")
                     .attr("text-anchor", "end")
-                    .attr("x", width - 90)
+                    .attr("x", width - 75)
                     .attr("y", height + 100)
                     .text("Decisions made in favour of Home Teams");
 
@@ -583,7 +583,7 @@ svg2.selectAll('rect')
                     svg5.append("text")
                     .attr("class", "x label")
                     .attr("text-anchor", "end")
-                    .attr("x", width - 100)
+                    .attr("x", width - 75)
                     .attr("y", height + 100)
                     .text("Decisions made in favour of Away Teams");
 
