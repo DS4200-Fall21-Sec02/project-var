@@ -504,7 +504,7 @@ svg3.append("text")
                     svg4.append("text")
                     .attr("class", "x label")
                     .attr("text-anchor", "end")
-                    .attr("x", width - 100)
+                    .attr("x", width - 75)
                     .attr("y", height + 100)
                     .text("Decisions made in favour of Home Teams");
 
@@ -559,7 +559,7 @@ svg3.append("text")
                     svg5.append("text")
                     .attr("class", "x label")
                     .attr("text-anchor", "end")
-                    .attr("x", width - 100)
+                    .attr("x", width - 75)
                     .attr("y", height + 100)
                     .text("Decisions made in favour of Away Teams");
 
