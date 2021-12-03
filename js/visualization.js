@@ -172,7 +172,7 @@ var svg3 = d3
       return team["NineteenFin"] - team["TwentyFin"];
     }
 
-
+//adding the x-axis
 const x2 = d3.scaleBand()
 .range([ 0, width])
 .domain(data.map(d => d.Team))
@@ -184,6 +184,7 @@ svg2.append("g")
 .attr("transform", "translate(-10,0)rotate(-45)")
 .style("text-anchor", "end");
 
+//adding the x-axis
 const x3 = d3.scaleBand()
 .range([ 0, width])
 .domain(data.map(d => d.Team))
@@ -195,24 +196,28 @@ svg3.append("g")
 .attr("transform", "translate(-10,0)rotate(-45)")
 .style("text-anchor", "end");
 
+//adding the y-axis
 const y2 = d3.scaleLinear()
 .domain([0, 30])
 .range([ height, 0]);
 svg2.append("g")
 .call(d3.axisLeft(y2));
 
+//adding the y-axis
 const y3 = d3.scaleLinear()
 .domain([0, 30])
 .range([ height, 0]);
 svg3.append("g")
 .call(d3.axisLeft(y3));
 
+//a dictionary for the team colors
 var colors = d3.scaleOrdinal()
 .domain(['AFC Bournemouth','Arsenal','Aston Villa', 'Brighton & Hove Albion', 'Burnley', 'Chelsea','Crystal Palace','Everton','Fulham', 'Leeds','Leicester City','Liverpool','Manchester City',
 'Manchester United','Newcastle', 'Norwich City', 'Sheffield United', 'Southampton','Tottenham Hotspur','Watford','West Brom', 'West Ham','Wolves'])
 .range(['#ba0f13', '#EF0107', '#670E36', '#FFCD00', '#6C1D45', '#034694', '#A7A5A6', '#003399', '#000000', '#AC944D', '#003090', '#C8102E', '#6CABDD',
 '#DA291C','#241F20', '#00A650', '#EE2737', '#D71920','#132257','#FBEE23','#122F67', '#7A263A','#FDB913'])
 
+//inserting data into bar chart
 var myBars1 = svg2.selectAll("bar_chart")
 .data(data)
 .enter()
@@ -241,6 +246,7 @@ svg2.append("text")
 .attr("transform", "rotate(-90)")
 .text("Number of VAR Decissions For");
 
+//inserting the data into barchart
 var myBars2 = svg3.selectAll("bar_chart")
 .data(data)
 .enter()
@@ -269,36 +275,6 @@ svg3.append("text")
 .attr("transform", "rotate(-90)")
 .text("Number of VAR Decissions Against");
 
-var selectedTeam = new Set();
-svg2.selectAll('rect')
-.on('mouseover', function () {
-  d3.select(this).attr("stroke", "black")
-  .attr("stroke-width", 3);
-  selectedTeam.add(this.__data__.Team)
-  svg3.selectAll("rect").classed("selected", function(d){
-    return selectedTeam.has(d.Team)})
-  })
-  .on('mouseout', function () {
-    svg3.selectAll("rect").classed("unselected", function(d){
-      return selectedTeam.has(d.Team)})
-      selectedTeam.clear();
-      d3.select(this).attr("stroke", "white").attr("stroke-width", 0);
-    });
-
-    svg3.selectAll('rect')
-    .on('mouseover', function () {
-      d3.select(this).attr("stroke", "black")
-      .attr("stroke-width", 3);
-      selectedTeam.add(this.__data__.Team)
-      svg2.selectAll("rect").classed("selected", function(d){
-        return selectedTeam.has(d.Team)})
-      })
-      .on('mouseout', function () {
-        svg2.selectAll("rect").classed("unselected", function(d){
-          return selectedTeam.has(d.Team)})
-          selectedTeam.clear();
-          d3.select(this).attr("stroke", "white").attr("stroke-width", 0);
-        });
 
         // brushing
         function clear() {
@@ -325,7 +301,7 @@ svg2.selectAll('rect')
           activeTeams = selectedTeams;
         }
 
-
+        //checks whether the scatterplot is brushed
         function isBrushed(brush_coords, cx, cy) {
           if (brush_coords === null) return;
 
@@ -335,7 +311,7 @@ svg2.selectAll('rect')
           y1 = brush_coords[1][1];
           return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; // This return TRUE or FALSE depending on if the points is in the selected area
         }
-
+        //linking two bar graphs together and highlighting them
         var selectedTeam = new Set();
         svg2.selectAll('rect')
         .on('mouseover', function () {
@@ -524,11 +500,11 @@ svg2.selectAll('rect')
                     svg4.append("g")
                     .call(d3.axisLeft(y));
 
-
+                    //adding the x label
                     svg4.append("text")
                     .attr("class", "x label")
                     .attr("text-anchor", "end")
-                    .attr("x", width - 75)
+                    .attr("x", width - 100)
                     .attr("y", height + 100)
                     .text("Decisions made in favour of Home Teams");
 
@@ -579,11 +555,11 @@ svg2.selectAll('rect')
                     svg5.append("g")
                     .call(d3.axisLeft(y));
 
-
+                    //adding the x label
                     svg5.append("text")
                     .attr("class", "x label")
                     .attr("text-anchor", "end")
-                    .attr("x", width - 75)
+                    .attr("x", width - 100)
                     .attr("y", height + 100)
                     .text("Decisions made in favour of Away Teams");
 
