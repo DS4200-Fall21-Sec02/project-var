@@ -1,0 +1,52 @@
+WEBVTT
+Kind: captions
+Language: en-US
+
+00:00:04.271 --> 00:00:06.902
+Hello everyone, our group looked at VAR data in the premier league
+
+00:00:06.902 --> 00:00:09.022
+to see if there was any biases in the VAR calls
+
+00:00:09.072 --> 00:00:11.636
+that impacted the position of teams in the Premier League table
+
+00:00:12.402 --> 00:00:14.694
+All of our visualizations our linked to our main scatter plot
+
+00:00:14.997 --> 00:00:19.263
+which plots the net goals scored, which is the total goals scored minus goals conceded 
+
+00:00:19.509 --> 00:00:24.707
+and the net subjective score which indicated VAR calls for minus VAR calls against
+
+00:00:24.707 --> 00:00:30.291
+Mousing over any point on the scatter plot will provide information about the team and the data point
+
+00:00:30.493 --> 00:00:37.827
+The color of the point on the scatter plot represents the difference between the first season in 2019 versus the second season in 2020
+
+00:00:38.168 --> 00:00:44.556
+The greener the point in the scatter plot will suggest they had a better finish in the 2020 season versus the 2019 season
+
+00:00:44.790 --> 00:00:49.550
+and the more red the point is in the scatter plot will suggest that they had a worse finish
+
+00:00:50.471 --> 00:00:58.746
+The two bar charts on either side of the scatter plot represent number of favorable var decisions on the left and the number of unfavorable var decisions on the right
+
+00:00:58.936 --> 00:01:04.988
+Brushing over any point, or group of points,&nbsp; on the scatter plot will also highlight the corresponding bar on these charts
+
+00:01:05.461 --> 00:01:10.000
+Additionally, brushing over any bar will highlight the same team’s bar on the other bar chart
+
+00:01:10.448 --> 00:01:16.351
+The bottom two bar charts represents a count of favorable decisions at home games on the left and away games on the right
+
+00:01:16.610 --> 00:01:22.949
+These charts are also linked to the scatterplot and will only represent data for teams that are currently selected on the scatterplot
+
+00:01:23.283 --> 00:01:33.662
+This allows users to select a team or teams in the scatter plot, view their VAR decisions for and against, and look to see if there is any bias towards them at home or away games
+
